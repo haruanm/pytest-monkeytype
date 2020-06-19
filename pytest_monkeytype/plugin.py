@@ -37,9 +37,7 @@ class MonkeyTypePlugin(object):
         from monkeytype.tracing import CallTracer
 
         self.tracer = CallTracer(
-            logger=self.trace_logger,
-            code_filter=self.config.code_filter(),
-            sample_rate=None,
+            logger=self.trace_logger, max_typed_dict_size=0, code_filter=self.config.code_filter(), sample_rate=None,
         )
         sys.setprofile(self.tracer)
 
@@ -61,8 +59,7 @@ class MonkeyTypePlugin(object):
 def pytest_addoption(parser):
     """Add our --monkeytype-output option to the pytest option parser."""
     parser.addoption(
-        "--monkeytype-output",
-        help='Output file where MonkeyType stats should be saved.  Eg: "monkeytype.sqlite3"',
+        "--monkeytype-output", help='Output file where MonkeyType stats should be saved.  Eg: "monkeytype.sqlite3"',
     )
 
 
